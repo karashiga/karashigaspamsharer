@@ -6,19 +6,20 @@ import string
 import random
 import requests
 import httpx
-from utils import convert_to_cookie, get_cuser_cookie
+import json
+from utils import convert_to_cookie, get_cuser_cookie, extract_cookie_from_appstate
 
 def show_cookie_getter():
     """Display the cookie getter interface."""
     st.markdown("""
     <div class="cookie-getter-header">
         <h2 class="section-title">Facebook Cookie Getter</h2>
-        <p>Get Facebook cookies for use with the Share Booster</p>
+        <p>Get Facebook cookies for your accounts</p>
     </div>
     """, unsafe_allow_html=True)
     
     # Create tabs for different methods
-    tab1, tab2 = st.tabs(["Standard Login", "Advanced (c_user w/ token)"])
+    tab1, tab2, tab3 = st.tabs(["Standard Login", "Advanced (c_user w/ token)", "Appstate Method"])
     
     with tab1:
         st.markdown("""
@@ -47,7 +48,7 @@ def show_cookie_getter():
                             st.code(result["cookie"], language="plaintext")
                             st.markdown("""
                             <div class="cookie-info">
-                                <p>✅ Copy this cookie to use with the Share Booster</p>
+                                <p>✅ Copy this cookie for later use</p>
                             </div>
                             """, unsafe_allow_html=True)
                         else:
@@ -101,7 +102,7 @@ def show_cookie_getter():
                             
                             st.markdown("""
                             <div class="cookie-info">
-                                <p>✅ Copy this cookie to use with the Share Booster</p>
+                                <p>✅ Copy this data for later use</p>
                             </div>
                             """, unsafe_allow_html=True)
                         else:
@@ -118,5 +119,53 @@ def show_cookie_getter():
                     <li>Other session cookies</li>
                 </ul>
                 <p>Better for advanced operations and longer session validity.</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+    with tab3:
+        st.markdown("""
+        <div class="method-description">
+            <h3>Appstate Method</h3>
+            <p>Convert Facebook appstate JSON to cookie</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns([2, 1])
+        
+        with col1:
+            appstate = st.text_area("Facebook Appstate JSON", key="appstate_input",
+                              help="Paste your Facebook appstate JSON here.")
+            
+            if st.button("Extract Cookie", key="extract_cookie_btn", use_container_width=True):
+                if not appstate:
+                    st.error("Please provide your Facebook appstate JSON.")
+                else:
+                    with st.spinner("Processing appstate..."):
+                        try:
+                            result = extract_cookie_from_appstate(appstate)
+                            if result["success"]:
+                                st.success("Cookie extracted successfully!")
+                                st.code(result["cookie"], language="plaintext")
+                                st.markdown("""
+                                <div class="cookie-info">
+                                    <p>✅ Copy this cookie for later use</p>
+                                </div>
+                                """, unsafe_allow_html=True)
+                            else:
+                                st.error(result["message"])
+                        except Exception as e:
+                            st.error(f"Error processing appstate: {str(e)}")
+        
+        with col2:
+            st.markdown("""
+            <div class="cookie-info-card">
+                <h3>Appstate Info</h3>
+                <p>This method:</p>
+                <ul>
+                    <li>Converts appstate JSON to cookie</li>
+                    <li>Extracts all cookie components</li>
+                    <li>Works with exported appstate files</li>
+                </ul>
+                <p>Useful if you already have an appstate from another tool.</p>
             </div>
             """, unsafe_allow_html=True)

@@ -6,6 +6,7 @@ import time
 import uuid
 import string
 import random
+import hashlib
 import httpx
 import requests
 import asyncio
@@ -70,7 +71,29 @@ def save_users(data):
     with open("data/users.json", "w") as f:
         json.dump(data, f, indent=4)
 
-def add_user(username):
+def verify_user(username, password):
+    """Verify user credentials."""
+    data = load_users()
+    
+    for user in data["users"]:
+        if user["username"] == username:
+            # Check if the user was created with the old system (no password)
+            if "password" not in user:
+                # Update to new password system
+                user["password"] = hashlib.sha256(password.encode()).hexdigest()
+                save_users(data)
+                return {"success": True}
+            
+            # Verify password hash
+            password_hash = hashlib.sha256(password.encode()).hexdigest()
+            if user["password"] == password_hash:
+                return {"success": True}
+            else:
+                return {"success": False, "message": "Invalid password"}
+    
+    return {"success": False, "message": "User not found"}
+
+def add_user(username, password=None):
     """Add a new user to the system."""
     data = load_users()
     
@@ -80,12 +103,17 @@ def add_user(username):
             return False
     
     # Add new user
-    data["users"].append({
+    new_user = {
         "username": username,
         "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "last_login": time.strftime("%Y-%m-%d %H:%M:%S")
-    })
+    }
     
+    # Add password if provided
+    if password:
+        new_user["password"] = hashlib.sha256(password.encode()).hexdigest()
+    
+    data["users"].append(new_user)
     save_users(data)
     return True
 
