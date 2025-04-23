@@ -66,8 +66,8 @@ def load_users():
     """Load user data from JSON file."""
     import os
     
-    # Check for Render environment
-    data_dir = "/data" if os.path.exists("/data") else "data"
+    # For Render free tier (no persistent disk)
+    data_dir = "data"
     os.makedirs(data_dir, exist_ok=True)
     
     file_path = os.path.join(data_dir, "users.json")
@@ -85,8 +85,8 @@ def save_users(data):
     """Save user data to JSON file."""
     import os
     
-    # Check for Render environment
-    data_dir = "/data" if os.path.exists("/data") else "data"
+    # For Render free tier (no persistent disk)
+    data_dir = "data"
     os.makedirs(data_dir, exist_ok=True)
     
     file_path = os.path.join(data_dir, "users.json")
