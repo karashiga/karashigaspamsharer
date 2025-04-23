@@ -12,6 +12,10 @@ import requests
 import asyncio
 import aiohttp
 
+def generate_hash(password):
+    """Generate a password hash."""
+    return hashlib.sha256(password.encode()).hexdigest()
+
 def validate_cookie(cookie):
     """Validate if a Facebook cookie is properly formatted."""
     if not cookie:
@@ -60,15 +64,33 @@ async def get_token_from_cookie(cookie, session):
 
 def load_users():
     """Load user data from JSON file."""
+    import os
+    
+    # Check for Render environment
+    data_dir = "/data" if os.path.exists("/data") else "data"
+    os.makedirs(data_dir, exist_ok=True)
+    
+    file_path = os.path.join(data_dir, "users.json")
     try:
-        with open("data/users.json", "r") as f:
+        with open(file_path, "r") as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-        return {"users": []}
+        # If first time, add admin user
+        default_data = {"users": [{"username": "david143", "password": generate_hash("david1433"), "is_admin": True, "last_login": None}]}
+        with open(file_path, "w") as f:
+            json.dump(default_data, f, indent=4)
+        return default_data
 
 def save_users(data):
     """Save user data to JSON file."""
-    with open("data/users.json", "w") as f:
+    import os
+    
+    # Check for Render environment
+    data_dir = "/data" if os.path.exists("/data") else "data"
+    os.makedirs(data_dir, exist_ok=True)
+    
+    file_path = os.path.join(data_dir, "users.json")
+    with open(file_path, "w") as f:
         json.dump(data, f, indent=4)
 
 def verify_user(username, password):
