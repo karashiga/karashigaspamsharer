@@ -145,7 +145,7 @@ def show_share_booster():
         </div>
         """, unsafe_allow_html=True)
         
-        appstate = st.text_area("Facebook Appstate JSON", key="appstate_input",
+        appstate = st.text_area("Facebook Appstate JSON", key="appstate_input_share",
                                help="Paste your Facebook appstate JSON here.")
         post_url = st.text_input("Post URL", key="post_url_appstate",
                                help="Facebook post URL to boost shares. Must start with https://www.facebook.com/")
