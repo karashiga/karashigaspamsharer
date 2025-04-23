@@ -1,0 +1,10 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7B68EE" />
+            <stop offset="100%" stop-color="#4B0082" />
+        </linearGradient>
+    </defs>
+    <path d="M100,20 L180,90 L140,160 L60,160 L20,90 Z" fill="url(#logo-gradient)" />
+    <text x="100" y="110" font-family="Arial" font-size="36" font-weight="bold" fill="white" text-anchor="middle">FB</text>
+</svg>
