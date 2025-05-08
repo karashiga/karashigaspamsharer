@@ -14,8 +14,8 @@ import style
 
 # Page configuration
 st.set_page_config(
-    page_title="FB Share Booster Pro",
-    page_icon="🚀",
+    page_title="Boostify Pro",
+    page_icon="🧿",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -57,7 +57,7 @@ st.markdown("""
             <text x="100" y="110" font-family="Arial" font-size="36" font-weight="bold" fill="white" text-anchor="middle">FB</text>
         </svg>
     </div>
-    <h1 class="main-title">FB Share Booster Pro</h1>
+    <h1 class="main-title">Boostify Pro v6.5</h1>
 </div>
 """, unsafe_allow_html=True)
 
