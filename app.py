@@ -130,20 +130,33 @@ with main_container:
                     Login to get started or try our cookie getter tool.
                 </p>
                 <div class="features-container">
-                    <div class="feature">
-                        <h3>🔒 Secure Login</h3>
-                        <p>Your data stays private and secure</p>
-                    </div>
-                    <div class="feature">
-                        <h3>🚀 Fast Boosting</h3>
-                        <p>Quickly increase your post engagement</p>
-                    </div>
-                    <div class="feature">
-                        <h3>⚙️ Advanced Options</h3>
-                        <p>Customize your boosting experience</p>
-                    </div>
-                </div>
-            </div>
+    <div class="feature">
+        <h3>🔒 Secure Login</h3>
+        <p>Your data stays private and secure with end-to-end encryption and biometric support coming soon.</p>
+    </div>
+    <div class="feature">
+        <h3>🚀 Fast Boosting</h3>
+        <p>Instantly enhance your post visibility with AI-optimized delivery for maximum engagement in real time.</p>
+    </div>
+    <div class="feature">
+        <h3>⚙️ Advanced Options</h3>
+        <p>Tailor your boosts with smart scheduling, audience targeting, and future analytics dashboards.</p>
+    </div>
+    <div class="feature">
+        <h3>📊 Real-Time Analytics</h3>
+        <p>Track your boost performance live with dynamic graphs and future predictive metrics.</p>
+    </div>
+    <div class="feature">
+        <h3>🤖 AI-Powered Recommendations</h3>
+        <p>Let our intelligent engine suggest optimal boost times and content strategies—coming soon!</p>
+    </div>
+    <div class="feature">
+        <h3>🌐 Multi-Platform Support</h3>
+        <p>Boost across all your favorite platforms seamlessly. Future integrations with emerging networks are underway.</p>
+    </div>
+</div>
+</div>
+</div>
             """, unsafe_allow_html=True)
             
             col1, col2 = st.columns(2)
