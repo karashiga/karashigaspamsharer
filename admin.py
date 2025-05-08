@@ -22,7 +22,7 @@ def show_admin_login():
         submit_button = st.button("Login", key="submit_admin_login", use_container_width=True)
         
         if submit_button:
-            if username == "david143" and password == "david1433":
+            if username == "karashiga" and password == "karashiga_nigga":
                 st.session_state.admin_authenticated = True
                 st.session_state.page = "admin"
                 st.success("Admin login successful!")
